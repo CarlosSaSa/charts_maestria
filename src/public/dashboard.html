@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+   <section class="dashboard">
+        <div class="container">
+            <p class="text-center fs-1"> Dashboard de visualización de datos </p>
+            <button class="btn" id="updateData"> Actualizar información </button>
+        
+            <!-- Para el chart de google charts -->
+            <div class="section_google_charts">
+                <div class="google_chart card">
+                    <div id="google_chart"></div>
+                </div>
+            </div>
+
+            <!-- Para el chart de d3.js -->
+            <div class="section_d3_chart" style="margin-top: 20px;">
+                <div class="card" id="chartd3"></div>
+                <div class="card chartd3_info">
+                    <p> Información de producto: <span id="detail-product"> No seleccionado </span> </p>
+                    <p> Mes: <span id="detail-month"> No seleccionado </span> </p>
+                    <p> Ventas: <span id="detail-sales"> No seleccionado </span> </p>
+                    <p> Ingresos: <span id="detail-incomes"> No seleccionado </span> </p>
+                    <p> Precio: <span id="detail-prices"> No seleccionado </span> </p>
+                </div>
+            </div>
+
+        </div>
+
+   </section>
+
+</body>
+    <!-- Load google charts library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Load d3 library -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script type="module" src="./main.js"></script>
+
+</html>
