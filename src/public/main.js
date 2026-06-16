@@ -12,29 +12,44 @@ google.charts.setOnLoadCallback( () =>{
 
 async function drawChart( data ) {
 
+     /**
+     * Se busca formar una estructura de datos de tipo: 
+     *  Mes    Producto_1 Producto_2 ... Producto_n
+        Enero  100        200        ... 3000
+        Febrero 200       200         ... 4000
+    */  
+
     // Se obtienen los datos unicos
-    const products = new Set(data.map(item => item.producto));
-    const months = new Set(data.map(item => item.mes));
+    const products = new Set(data.map(item => item.producto)); // Se obtienen los productos unicos 
+    const months = new Set(data.map(item => item.mes)); // Se obtienen los meses unicos
 
     var dataTable = new google.visualization.DataTable();
     // Agrear las columnas 
     dataTable.addColumn('string', 'Mes');
-    products.forEach(product => dataTable.addColumn('number', product))
+    products.forEach(product => dataTable.addColumn('number', product)) // Cada producto unico se agrega como columna
 
-    for (const month of months) {
+    for (const month of months) { // Por cada mes unico 
         // De cada mes obtenemos el producto
-        const productsSales = []
-        for (const product of products) {
+        const productsSales = []; // Array temporal para almacenar los productos por mes
+        for (const product of products) { //Por cada producto unico
+            // Del array original de los datos se obtiene el producto unico con su respectivo mes, si se encuentra se obtienen las ventas
+            // por ejemplo, Enero - Smartphone A => 200, Enero - Smartphone B => 400
             const productSaleByMonth = data.find(productDB => productDB.mes == month && productDB.producto == product)?.ventas ?? 0;
-            productsSales.push(productSaleByMonth);
-
+            productsSales.push(productSaleByMonth); // Se agregan las ventas al array temporal por cada mes actual
         }
-        dataTable.addRow([month, ...productsSales]);
+        dataTable.addRow([month, ...productsSales]); // Se forma el array por cada mes, por ejemplo, ['Enero', 200, 400, 2000 ] y se agrega al datatable
     }
 
     let options = {
         chart: {
             title: 'Venta de productos',
+        },
+        annotations: {
+            alwaysOutside: true,
+            textStyle: {
+                fontSize: 12,
+                bold: true
+            }
         },
         height: 300,
     };
@@ -46,8 +61,6 @@ async function drawChart( data ) {
 
 
 // d3.js
-// Productos unicos
-
 // Configuraciones del container que almacenará el grafico
 const margin = { top: 40, right: 40, bottom: 120, left: 80 };
 const width = 450 - margin.left - margin.right; // 400px - margenes
