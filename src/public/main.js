@@ -140,8 +140,8 @@ const renderChartD3 = ( data ) => {
                 .style("cursor", "pointer");
 
             g.append("circle")
-                .attr("cx", d => xScale(d.ventas))
-                .attr("cy", height) // Nacen desde el suelo
+                .attr("cx", d => xScale(d.ventas)) // La escala es la venta
+                .attr("cy", height) // Se renderizan desde el final
                 .attr("r", 0)
                 .attr("fill", d => colorScale(d.producto))
                 .attr("opacity", 0.75)
