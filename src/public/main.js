@@ -162,7 +162,17 @@ const renderChartD3 = ( data ) => {
             return g;
         },
         // Los elementos que ya existen se mantienen
-        update => update,
+        update => {
+            // IMPORTANTE: Restaurar la opacidad a 1 por si fueron "rescatados" del bloque exit
+            update.attr("opacity", 1);
+            
+            // Restaurar la opacidad del círculo en caso de que un "click" previo lo haya dejado en 0.2
+            update.select("circle")
+                .attr("opacity", 0.75)
+                .attr("stroke", "#ffffff");
+
+            return update;
+        },
         // Los elementos que ya no existen  desaparecen
         exit => exit.transition()
                     .duration(DURATION_UPDATE / 2)
@@ -184,7 +194,7 @@ const renderChartD3 = ( data ) => {
         .ease(d3.easeCubicOut)
         .attr("x", d => xScale(d.ventas))
         .attr("y", d => yScale(d.ingresos))
-        .attr("dy", d => -(rScale(d.precio) + 6))
+        .attr("dy", d => -(rScale(d.precio) + 6)) // margen de 6 unidades
         .attr("opacity", 1);
 
     // Por cada elemento renderizado se tiene que asociar el listener
@@ -218,7 +228,7 @@ const renderChartD3 = ( data ) => {
 
 }
 
-// Se llama a la API
+// Se renderizan las burbujas con los datos iniciales
 renderChartD3( data );
 
 // Botón para actualizar la información
