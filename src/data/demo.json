@@ -40,5 +40,12 @@
       "ventas": 70,
       "ingresos": 21000,
       "precio": 300
+   },
+   {
+      "producto": "Tablet Z",
+      "mes": "Febrero",
+      "ventas": 100,
+      "ingresos": 21000,
+      "precio": 300
    }
 ]
