@@ -163,17 +163,17 @@ const renderChartD3 = ( data ) => {
         },
         // Los elementos que ya existen se mantienen
         update => {
-            // IMPORTANTE: Restaurar la opacidad a 1 por si fueron "rescatados" del bloque exit
+            // Se restaura la opacidad a 1 en cada actualización
             update.attr("opacity", 1);
             
-            // Restaurar la opacidad del círculo en caso de que un "click" previo lo haya dejado en 0.2
+            // Restaurar la opacidad de la burbuja si fueron seleccionados
             update.select("circle")
                 .attr("opacity", 0.75)
                 .attr("stroke", "#ffffff");
 
             return update;
         },
-        // Los elementos que ya no existen  desaparecen
+        // Los elementos que ya no existen se quitan
         exit => exit.transition()
                     .duration(DURATION_UPDATE / 2)
                     .attr("opacity", 0)
